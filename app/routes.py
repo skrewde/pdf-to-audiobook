@@ -1,7 +1,7 @@
+import os
 from flask import render_template, request, redirect, url_for, flash
 from flask_wtf import FlaskForm
 from wtforms import FileField
-import os
 import pyttsx3
 from PyPDF2 import PdfReader
 
