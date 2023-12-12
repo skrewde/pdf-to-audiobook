@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF To Audiobook Converter</title>
+    <title>{% block title %}PDF To Audiobook Converter{% endblock %}</title>
 </head>
 <body>
-    
+    <h2>Convert from PDF to Audiobook</h2>
+    {% block body %}{% endblock %}
+    <footer>
+        <p>By <a href="http://skrewde.me/">skrewde</a>. <a href=" ">GitHub repo</a>.</p>
+    </footer>
 </body>
 </html>
