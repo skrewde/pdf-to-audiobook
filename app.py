@@ -4,15 +4,14 @@ this python module defines the logic and routes for pdf-to-audiobook
 import os
 import tempfile
 from flask import Flask, render_template, send_file
-from flask_uploads import UploadSet
+import flask_uploads as fu
 import pyttsx3
 from cs50 import SQL
 
 # configure app
 app = Flask(__name__)
 
-UPLOAD = '/upload'
-ALLOWED_EXTENSION = 'pdf'
+pdfs = fu.UploadSet("pdfs", ["pdf"])
 
 # configure database using cs50 library
 # db = SQL()

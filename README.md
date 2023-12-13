@@ -13,6 +13,10 @@ A list of this application's dependencies can be found in requirements.txt
 ```
 pip install -r requirements.txt
 ```
+5. Run the application by running this command:
+```
+flask run
+```
 
 ## Features/Roadmap:
 
