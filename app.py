@@ -1,23 +1,24 @@
 """
 this python module defines the logic and routes for pdf-to-audiobook
 """
-
-import os
+# import os
 import secrets
 
-from flask import Flask, redirect, request, render_template, send_file, url_for
-import flask_uploads as fu
 from werkzeug.exceptions import RequestEntityTooLarge
+from flask import Flask, redirect, request, render_template, url_for
+import flask_uploads as fu
 
-import pyttsx3
-from cs50 import SQL
+# import pyttsx3
+# from cs50 import SQL
+
+import utils
 
 app = Flask(__name__)
 
 # uploadset config
-pdfs = fu.UploadSet("pdfs", ["pdf"])
+pdfs = fu.UploadSet("pdfs", extensions="pdf")
 
-app.config["UPLOADED_PDFS_DEST"] = "uploads/"
+app.config["UPLOADED_PDFS_DEST"] = utils.set_destination(app, path="uploads/")
 app.config["MAX_CONTENT_LENGTH"] = 3 * 1024 * 1024 # set max upload size to 3 megabytes
 app.config["SECRET_KEY"] = str(secrets.SystemRandom().getrandbits(128))
 
@@ -43,38 +44,30 @@ def root():
     """
     return render_template("index.html")
 
-# decorator for defining the convert url
 @app.route("/", methods=["GET", "POST"])
+# function for handling pdf uploads
 def upload():
     """
     this function handles pdf uploads after page load
     """
-    # uploaded_file = pdfs.save(request.files["pdf"])
-    try:
-        print('sup')
-        # logic logic later
-    except RequestEntityTooLarge:
-        return redirect(url_for('root', error='file_size_limit_exceeded'))
+    test = request.method == "POST" and "pdf" in request.files
+    print("the result of the statement is", test)
 
-# @app.route("/tts")
-# def tts():
-#     text = "Fine weather we've got here, no?"
+    if request.method == "POST" and "pdf" in request.files:
+        try:
+            # save pdf upload to the "uploads" folder
+            filename = pdfs.save(request.files["pdf"])
 
-#     # Use a temporary file to store the TTS audio
-#     with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as temp_audio:
-#         temp_filename = temp_audio.name
-#         engine.save_to_file(text, temp_filename)
-#         engine.runAndWait()
+            # add processing/db logic later (store file in db for processing)
 
-#     # Set the appropriate headers for the response
-#     response_headers = {
-#         'Content-Type': 'audio/mpeg',
-#         'Content-Disposition': f'attachment; filename={temp_filename}'
-#     }
+            print(f'haha, {filename} saved!')
 
-#     # Send the file as a response
-#     return send_file(temp_filename, as_attachment=True, download_name="test.mp3")
-
+            return "Your file uploaded successfully (Not really)!"
+        except fu.exceptions.UploadNotAllowed:
+            return redirect(url_for("root", error="upload_not_allowed"))
+        except RequestEntityTooLarge:
+            return redirect(url_for("root", error="file_size_limit_exceeded"))
+    return render_template("index.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

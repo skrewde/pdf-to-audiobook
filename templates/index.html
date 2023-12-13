@@ -3,8 +3,8 @@
 {% block body %}
 
     <p>Upload PDF:</p>
-    <form method="post" ="multipart/form-data">
-        <input name="pdf" autocomplete="off" type="file">
+    <form method="POST" enctype="multipart/form-data">
+        <input placeholder="Choose file" name="pdf" autocomplete="off" type="file">
         <button name="pdf" value="pdf" type="submit">Upload</button>
     </form>
 
@@ -13,12 +13,21 @@
 {% block scripts %}
     {{ super() }}
     <script>
-        // script for user-friendly size limit error message
-        const urlParams = new URLSearchParams(window.location.search);
-        const fileSizeLimitExceeded = urlParams.get('error');
+        // script for user-friendly error messages
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get("error");
 
-        if (fileSizeLimitExceeded === 'file_size_limit_exceeded') {
-            alert('Error: File Size Limit Exceeded\n\nThe file you are trying to upload exceeds the maximum allowed size of 3 megabytes.\nPlease upload a smaller file.');
-        }
+            if (error === "upload_not_allowed") {
+                console.log("the condition checks out")
+                alert("Error: Invalid file type!\n\nPlease upload a PDF.")
+            }
+
+            if (error === "") {
+                console.log("the condition checks out")
+                alert("Error: File Size Limit Exceeded!\n\nThe file you are trying to upload exceeds the maximum allowed size of 3 megabytes.\nPlease upload a smaller file.");
+            }
+
+        });
     </script>
 {% endblock %}
