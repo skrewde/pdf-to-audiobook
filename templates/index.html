@@ -3,9 +3,22 @@
 {% block body %}
 
     <p>Upload PDF:</p>
-    <form enctype="multipart/form-data">
-        <input autocomplete="off" type="file">
+    <form method="post" ="multipart/form-data">
+        <input name="pdf" autocomplete="off" type="file">
         <button name="pdf" value="pdf" type="submit">Upload</button>
     </form>
 
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script>
+        // script for user-friendly size limit error message
+        const urlParams = new URLSearchParams(window.location.search);
+        const fileSizeLimitExceeded = urlParams.get('error');
+
+        if (fileSizeLimitExceeded === 'file_size_limit_exceeded') {
+            alert('Error: File Size Limit Exceeded\n\nThe file you are trying to upload exceeds the maximum allowed size of 3 megabytes.\nPlease upload a smaller file.');
+        }
+    </script>
 {% endblock %}

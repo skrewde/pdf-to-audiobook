@@ -5,11 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}PDF To Audiobook Converter{% endblock %}</title>
 </head>
+
 <body>
     <h2>Convert from PDF to Audiobook</h2>
+    <div></div>
     {% block body %}{% endblock %}
+
+    {% block scripts %}{% endblock %}
+    {% block styles %}{% endblock %}
     <footer>
         <p>By <a href="http://skrewde.me/">skrewde</a>. <a href=" ">GitHub repo</a>.</p>
     </footer>
 </body>
+
 </html>

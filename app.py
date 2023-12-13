@@ -1,33 +1,42 @@
 """
 this python module defines the logic and routes for pdf-to-audiobook
 """
+
 import os
 import secrets
-import tempfile
-from flask import Flask, render_template, send_file
+
+from flask import Flask, redirect, request, render_template, send_file, url_for
 import flask_uploads as fu
+from werkzeug.exceptions import RequestEntityTooLarge
+
 import pyttsx3
 from cs50 import SQL
 
-# configure app
 app = Flask(__name__)
 
+# uploadset config
 pdfs = fu.UploadSet("pdfs", ["pdf"])
 
 app.config["UPLOADED_PDFS_DEST"] = "uploads/"
+app.config["MAX_CONTENT_LENGTH"] = 3 * 1024 * 1024 # set max upload size to 3 megabytes
 app.config["SECRET_KEY"] = str(secrets.SystemRandom().getrandbits(128))
 
 # store pdf uploadset config in app instance
-configure_uploads(app, pdfs)
+fu.configure_uploads(app, pdfs)
 
 # configure database using cs50 library
 # db = SQL()
 
 # instantiate pyttsx3 object
-engine = pyttsx3.init()
+# engine = pyttsx3.init()
+
+# logic for parsing pdf
+
+# logic for converting, saving text to audio
+
 
 # decorator for defining the root url
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
 def root():
     """
     this function handles the route for the root url
@@ -35,12 +44,17 @@ def root():
     return render_template("index.html")
 
 # decorator for defining the convert url
-@app.route("/upload")
+@app.route("/", methods=["GET", "POST"])
 def upload():
     """
-    this function handles the route for the convert url
+    this function handles pdf uploads after page load
     """
-    return "Yo, this is for conversion"
+    # uploaded_file = pdfs.save(request.files["pdf"])
+    try:
+        print('sup')
+        # logic logic later
+    except RequestEntityTooLarge:
+        return redirect(url_for('root', error='file_size_limit_exceeded'))
 
 # @app.route("/tts")
 # def tts():
