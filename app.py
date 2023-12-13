@@ -2,6 +2,7 @@
 this python module defines the logic and routes for pdf-to-audiobook
 """
 import os
+import secrets
 import tempfile
 from flask import Flask, render_template, send_file
 import flask_uploads as fu
@@ -13,6 +14,12 @@ app = Flask(__name__)
 
 pdfs = fu.UploadSet("pdfs", ["pdf"])
 
+app.config["UPLOADED_PDFS_DEST"] = "uploads/"
+app.config["SECRET_KEY"] = str(secrets.SystemRandom().getrandbits(128))
+
+# store pdf uploadset config in app instance
+configure_uploads(app, pdfs)
+
 # configure database using cs50 library
 # db = SQL()
 
@@ -20,7 +27,7 @@ pdfs = fu.UploadSet("pdfs", ["pdf"])
 engine = pyttsx3.init()
 
 # decorator for defining the root url
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def root():
     """
     this function handles the route for the root url
