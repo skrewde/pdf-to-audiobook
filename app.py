@@ -1,7 +1,7 @@
 """
 this python module defines the logic and routes for pdf-to-audiobook
 """
-# import os
+
 import secrets
 
 from werkzeug.exceptions import RequestEntityTooLarge
@@ -63,11 +63,18 @@ def upload():
             print(f'haha, {filename} saved!')
 
             return "Your file uploaded successfully (Not really)!"
-        except fu.exceptions.UploadNotAllowed:
+        except fu.UploadNotAllowed:
             return redirect(url_for("root", error="upload_not_allowed"))
         except RequestEntityTooLarge:
             return redirect(url_for("root", error="file_size_limit_exceeded"))
     return render_template("index.html")
+
+# @app.errorhandler(413)
+# def file_size_limit_exceeded(error):
+#     """
+#     test for 413 error handling
+#     """
+#     return redirect(url_for("root", error="file_size_limit_exceeded"))
 
 if __name__ == "__main__":
     app.run(debug=True)

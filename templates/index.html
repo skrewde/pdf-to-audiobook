@@ -23,7 +23,7 @@
                 alert("Error: Invalid file type!\n\nPlease upload a PDF.")
             }
 
-            if (error === "") {
+            if (error === "file_size_limit_exceeded") {
                 console.log("the condition checks out")
                 alert("Error: File Size Limit Exceeded!\n\nThe file you are trying to upload exceeds the maximum allowed size of 3 megabytes.\nPlease upload a smaller file.");
             }
