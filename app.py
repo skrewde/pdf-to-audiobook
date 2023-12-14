@@ -4,7 +4,7 @@ this python module defines the logic and routes for pdf-to-audiobook
 
 import secrets
 
-from werkzeug.exceptions import RequestEntityTooLarge
+import werkzeug
 from flask import Flask, redirect, request, render_template, url_for
 import flask_uploads as fu
 
@@ -31,10 +31,9 @@ fu.configure_uploads(app, pdfs)
 # instantiate pyttsx3 object
 # engine = pyttsx3.init()
 
-# logic for parsing pdf
+# add logic for parsing pdf
 
-# logic for converting, saving text to audio
-
+# add logic for converting, saving text to audio
 
 # decorator for defining the root url
 @app.route("/")
@@ -65,16 +64,22 @@ def upload():
             return "Your file uploaded successfully (Not really)!"
         except fu.UploadNotAllowed:
             return redirect(url_for("root", error="upload_not_allowed"))
-        except RequestEntityTooLarge:
-            return redirect(url_for("root", error="file_size_limit_exceeded"))
     return render_template("index.html")
 
-# @app.errorhandler(413)
-# def file_size_limit_exceeded(error):
-#     """
-#     test for 413 error handling
-#     """
-#     return redirect(url_for("root", error="file_size_limit_exceeded"))
+@app.errorhandler(413)
+def file_size_limit_exceeded(error):
+    """
+    test for 413 error handling
+    """
+    return redirect(url_for("root", error="file_size_limit_exceeded"))
+
+@app.errorhandler(404)
+def not_found(error):
+    """
+    test for 404 error handling
+    """
+    return redirect(url_for("root", error="not_found"))
 
 if __name__ == "__main__":
+    print("hello!")
     app.run(debug=True)

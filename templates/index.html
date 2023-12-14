@@ -28,6 +28,9 @@
                 alert("Error: File Size Limit Exceeded!\n\nThe file you are trying to upload exceeds the maximum allowed size of 3 megabytes.\nPlease upload a smaller file.");
             }
 
+            if (error === "not_found") {
+                alert("Error: File/Site not found\n\nYThey say not all who wander are lost but you, friend, most definitely are.");
+            }
         });
     </script>
 {% endblock %}
