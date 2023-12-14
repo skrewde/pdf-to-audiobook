@@ -4,21 +4,22 @@ this python module defines the logic and routes for pdf-to-audiobook
 
 import secrets
 
-import werkzeug
+# import werkzeug
 from flask import Flask, redirect, request, render_template, url_for
 import flask_uploads as fu
 
 # import pyttsx3
 # from cs50 import SQL
 
-import utils
+# import utils
 
 app = Flask(__name__)
 
 # uploadset config
 pdfs = fu.UploadSet("pdfs", extensions="pdf")
 
-app.config["UPLOADED_PDFS_DEST"] = utils.set_destination(app, path="uploads/")
+# app.config["UPLOADED_PDFS_DEST"] = utils.set_destination(app, path="uploads/")
+app.config["UPLOADED_PDFS_DEST"] = "uploads/"
 app.config["MAX_CONTENT_LENGTH"] = 3 * 1024 * 1024 # set max upload size to 3 megabytes
 app.config["SECRET_KEY"] = str(secrets.SystemRandom().getrandbits(128))
 
@@ -41,19 +42,23 @@ def root():
     """
     this function handles the route for the root url
     """
+
+    test2 = __name__ == "__main__"
+    print(test2)
     return render_template("index.html")
 
 @app.route("/", methods=["GET", "POST"])
-# function for handling pdf uploads
 def upload():
     """
-    this function handles pdf uploads after page load
+    this function handles pdf uploads
     """
-    test = request.method == "POST" and "pdf" in request.files
-    print("the result of the statement is", test)
 
     if request.method == "POST" and "pdf" in request.files:
         try:
+            # check if a file 
+            if not request.files["pdf"]:
+                redirect(url_for("root", error="no_file"))
+
             # save pdf upload to the "uploads" folder
             filename = pdfs.save(request.files["pdf"])
 
@@ -81,5 +86,4 @@ def not_found(error):
     return redirect(url_for("root", error="not_found"))
 
 if __name__ == "__main__":
-    print("hello!")
     app.run(debug=True)
