@@ -52,7 +52,7 @@ def text_file_checker(text, text_path):
         print("Failure! File not created.")
 
 def convert_text_to_audio(text, audio_path):
-    """ function to create audiobook using pyttsx3 """
+    """ create "audiobook" using pyttsx3 """
     engine.save_to_file(text, filename=audio_path)
     engine.runAndWait()
 
@@ -69,31 +69,35 @@ def convert():
     if request.method == "POST" and "pdf" in request.files:
         try:
             # check if file is present
-            if not request.files["pdf"]:
-
+            if "pdf" not in request.form.getlist(key="pdf"):
+                print("True")
                 redirect(url_for("root", error="no_file"))
+                return
 
-            # save pdf in "uploads", store name in filename
-            filename = pdfs.save(request.files["pdf"])
+            # save pdf in "uploads", store name (minus extension) in filename
+            pdf = pdfs.save(request.files["pdf"])
+            filename = pdf.split(".")[0]
+            print(f"{filename}.pdf was saved!")
 
-            print(f"{filename} was saved!")
+            pdf_path = "uploads/" + pdf
 
-            pdf_path = "uploads/" + filename
-
+            print("Extracting text...")
             text = extract_text_from_pdf(pdf_path)
 
             # text_path = "uploads/pdf.txt"
 
-            audio_path = "uploads/st.mp3"
+            print("Finished extracting text!")
+            audio_path = f"uploads/{filename}.mp3"
 
             # save_string_to_text_file(text, text_path)
 
             # text_file_checker(text, text_path)
 
+            print("Converting to audio...")
             convert_text_to_audio(text, audio_path)
 
-            print(f"haha, {filename} saved!")
-            return "Success! Check your folder for the mp3 file"
+            print("Finished converting to audio!")
+            return "Success! Check your uploads folder for the mp3 file"
         except fu.UploadNotAllowed:
             return redirect(url_for("root", error="upload_not_allowed"))
     return render_template("index.html")
