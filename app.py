@@ -54,6 +54,7 @@ def text_file_checker(text, text_path):
 def convert_text_to_audio(text, audio_path):
     """ function to create audiobook using pyttsx3 """
     engine.save_to_file(text, filename=audio_path)
+    engine.runAndWait()
 
 # decorator for defining the root url
 @app.route("/")
@@ -69,6 +70,7 @@ def convert():
         try:
             # check if file is present
             if not request.files["pdf"]:
+
                 redirect(url_for("root", error="no_file"))
 
             # save pdf in "uploads", store name in filename
@@ -82,7 +84,7 @@ def convert():
 
             # text_path = "uploads/pdf.txt"
 
-            audio_path = f"uploads/{filename}.mp3"
+            audio_path = "uploads/st.mp3"
 
             # save_string_to_text_file(text, text_path)
 
