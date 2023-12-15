@@ -68,11 +68,10 @@ def convert():
 
     if request.method == "POST" and "pdf" in request.files:
         try:
-            # check if file is present
-            if "pdf" not in request.form.getlist(key="pdf"):
-                print("True")
-                redirect(url_for("root", error="no_file"))
-                return
+            # todo: check if file is present
+            # if not request.form.get("pdf"):
+            #     print("Also true")
+            #     return redirect(url_for("root", error="no_file"))
 
             # save pdf in "uploads", store name (minus extension) in filename
             pdf = pdfs.save(request.files["pdf"])
@@ -83,20 +82,17 @@ def convert():
 
             print("Extracting text...")
             text = extract_text_from_pdf(pdf_path)
+            print("Finished extracting text!")
 
             # text_path = "uploads/pdf.txt"
-
-            print("Finished extracting text!")
-            audio_path = f"uploads/{filename}.mp3"
-
             # save_string_to_text_file(text, text_path)
-
             # text_file_checker(text, text_path)
+            audio_path = f"uploads/{filename}.mp3"
 
             print("Converting to audio...")
             convert_text_to_audio(text, audio_path)
-
             print("Finished converting to audio!")
+
             return "Success! Check your uploads folder for the mp3 file"
         except fu.UploadNotAllowed:
             return redirect(url_for("root", error="upload_not_allowed"))
