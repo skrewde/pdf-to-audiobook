@@ -82,7 +82,7 @@ def convert():
 
             # text_path = "uploads/pdf.txt"
 
-            audio_path = f"audio/{filename}.mp3"
+            audio_path = f"uploads/{filename}.mp3"
 
             # save_string_to_text_file(text, text_path)
 
