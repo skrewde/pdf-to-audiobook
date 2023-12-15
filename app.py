@@ -1,7 +1,8 @@
 """
 this python module defines the logic and routes for pdf-to-audiobook
 """
-
+import os
+import sys
 import secrets
 
 # import werkzeug
@@ -9,6 +10,7 @@ from flask import Flask, redirect, request, render_template, url_for
 import flask_uploads as fu
 
 # import pyttsx3
+import pdfminer.high_level as pm
 # from cs50 import SQL
 
 # import utils
@@ -55,14 +57,39 @@ def upload():
 
     if request.method == "POST" and "pdf" in request.files:
         try:
-            # check if a file 
+            # check if a file exists
             if not request.files["pdf"]:
                 redirect(url_for("root", error="no_file"))
 
             # save pdf upload to the "uploads" folder
             filename = pdfs.save(request.files["pdf"])
 
-            # add processing/db logic later (store file in db for processing)
+            file_path = "uploads/" + filename
+
+            text = pm.extract_text(file_path)
+
+            with open("uploads/pdf.txt", "w", encoding="utf-8") as text_file:
+                # write FILE variable to a txt file
+                text_file.write(text)
+
+            # check if the file exists
+            if os.path.exists(TEXT_PATH):
+                # read text file
+                with open(TEXT_PATH, "r", encoding="utf-8") as file:
+                    file_content = file.read()
+
+                # compare the stripped versions of both files
+                if text.strip() == file_content.strip():
+                    print(len(text.strip()))
+                    print(len(file_content.strip()))
+                    print("Success! The string written to text file.")
+                else:
+                    print(len(text.strip()))
+                    print(len(file_content.strip()))
+                    print("Warning! Text file content differs from the original string.")
+            # catch-all exception
+            else:
+                print("Failure! File not created.")
 
             print(f'haha, {filename} saved!')
 
