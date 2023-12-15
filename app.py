@@ -25,6 +25,8 @@ app.config["UPLOADED_PDFS_DEST"] = "uploads/"
 app.config["MAX_CONTENT_LENGTH"] = 3 * 1024 * 1024 # set max upload size to 3 megabytes
 app.config["SECRET_KEY"] = str(secrets.SystemRandom().getrandbits(128))
 
+def 
+
 # store pdf uploadset config in app instance
 fu.configure_uploads(app, pdfs)
 
@@ -73,9 +75,9 @@ def upload():
                 text_file.write(text)
 
             # check if the file exists
-            if os.path.exists(TEXT_PATH):
+            if os.path.exists(file_path):
                 # read text file
-                with open(TEXT_PATH, "r", encoding="utf-8") as file:
+                with open(file_path, "r", encoding="utf-8") as file:
                     file_content = file.read()
 
                 # compare the stripped versions of both files
