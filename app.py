@@ -53,9 +53,7 @@ def text_file_checker(text, text_path):
 
 def convert_text_to_audio(text, audio_path):
     """ function to create audiobook using pyttsx3 """
-    engine.save_to_file(text, type="unicode", filename=audio_path)
-    return
-    
+    engine.save_to_file(text, filename=audio_path)
 
 # decorator for defining the root url
 @app.route("/")
@@ -68,11 +66,11 @@ def convert():
     """ function to handle pdf uploads """
 
     if request.method == "POST" and "pdf" in request.files:
-        # check if file is present
-        if not request.files["pdf"]:
-            redirect(url_for("root", error="no_file"))
-
         try:
+            # check if file is present
+            if not request.files["pdf"]:
+                redirect(url_for("root", error="no_file"))
+
             # save pdf in "uploads", store name in filename
             filename = pdfs.save(request.files["pdf"])
 
@@ -82,15 +80,18 @@ def convert():
 
             text = extract_text_from_pdf(pdf_path)
 
-            text_path = "uploads/pdf.txt"
+            # text_path = "uploads/pdf.txt"
 
-            save_string_to_text_file(text, text_path)
+            # audio_path = f"audio/{filename}.mp3"
 
-            text_file_checker(text, text_path)
+            # save_string_to_text_file(text, text_path)
+
+            # text_file_checker(text, text_path)
+
+            convert_text_to_audio(text, audio_path)
 
             print(f"haha, {filename} saved!")
-
-            return "Your file uploaded successfully (Not really)!"
+            return "Success! Check your folder for the mp3 file"
         except fu.UploadNotAllowed:
             return redirect(url_for("root", error="upload_not_allowed"))
     return render_template("index.html")

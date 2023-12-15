@@ -26,14 +26,14 @@ flask run
 * Guard against simple SQL injection attacks
 
 ### File uploads
-* Set up an upload route to handle PDF uploads
-* Set limits for PDF file size and validation
+* ~~Set up an upload route to handle PDF uploads~~ (partial implementation)
+* ~~Set limits for PDF file size and validation~~
 * Save PDFs and metadata in SQLite db
 * Test
 
 ### Text-To-Speech integration
-* Look up Python packages/libraries for TTS
-* Set up a conversion route to handle PDF to MPEG conversion
+* ~~Look up Python packages/libraries for Natural-sounding TTS (OpenAI Whisper?)~~ (partial implementation)
+* ~~Set up a conversion route to handle PDF to MPEG conversion~~
 * Test
 
 ### Streaming (Downloads)
