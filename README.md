@@ -20,12 +20,9 @@ flask run
 
 ## Features/Roadmap:
 
-### User authentication
-* Set up a simple user login system; Sign up and Log in
-* Figure out password hashing/small security features
-* Guard against simple SQL injection attacks
-
-### File uploads
+### File uploads and handling
+* Explore ways to make pdf conversion faster (ideally constant time)
+* Explore ways to make audio conversion faster (ideally constant time)
 * ~~Set up an upload route to handle PDF uploads~~ (partial implementation)
 * ~~Set limits for PDF file size and validation~~
 * Save PDFs and metadata in SQLite db
@@ -35,6 +32,11 @@ flask run
 * ~~Look up Python packages/libraries for Natural-sounding TTS (OpenAI Whisper?)~~ (partial implementation)
 * ~~Set up a conversion route to handle PDF to MPEG conversion~~
 * Test
+
+### User authentication
+* Set up a simple user login system; Sign up and Log in
+* Figure out password hashing/small security features
+* Guard against simple SQL injection attacks
 
 ### Streaming (Downloads)
 * Look into Flask streaming
