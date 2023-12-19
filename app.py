@@ -68,7 +68,7 @@ def convert():
 
     if request.method == "POST" and "pdf" in request.files:
         try:
-            # todo: check if file is present
+            # later: check if file is present
             # if not request.form.get("pdf"):
             #     print("Also true")
             #     return redirect(url_for("root", error="no_file"))
