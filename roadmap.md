@@ -5,8 +5,9 @@ Did  a little housekeeping and seperating the README from my personal notes on t
 ### File uploads and handling
 * Explore ways to make pdf conversion faster (ideally constant time)
     * Greedy vs Non-greedy algorithms
-    * How to process in batches
+    * How to process files in batches
     * Asynchronous programming(?)
+    * Streaming?
 * Explore ways to make audio conversion faster (ideally constant time)
 * ~~Set up an upload route to handle PDF uploads~~ (partial implementation)
 * ~~Set limits for PDF file size and validation~~
