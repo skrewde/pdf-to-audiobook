@@ -13,9 +13,9 @@ app = Flask(__name__)
 
 pdfs = fu.UploadSet("pdfs", extensions="pdf") # uploadset config
 
-app.config["UPLOADED_PDFS_DEST"] = "uploads/"
+app.config["UPLOADED_PDFS_DEST"] = "uploads/" # configure file path
 app.config["MAX_CONTENT_LENGTH"] = 3 * 1024 * 1024 # set max upload size to 3 megabytes
-app.config["SECRET_KEY"] = str(secrets.SystemRandom().getrandbits(128))
+app.config["SECRET_KEY"] = str(secrets.SystemRandom().getrandbits(128)) # generate a random secret key (not quite sure what this is useful for yet)
 
 fu.configure_uploads(app, pdfs) # store pdf uploadset config in app instance
 
