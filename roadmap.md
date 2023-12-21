@@ -4,7 +4,7 @@ Did  a little housekeeping and seperating the README from my personal notes on t
 
 ### File uploads and handling
 * Explore ways to make pdf conversion faster (ideally constant time)
-    * Greedy vs Non-greedy algorithms
+    * Greedy vs Non-greedy algorithms (binary search?)
     * How to process files in batches
     * Asynchronous programming(?)
     * Streaming?
