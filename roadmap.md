@@ -3,11 +3,14 @@ Did  a little housekeeping and seperating the README from my personal notes on t
 ## Features/Roadmap:
 
 ### File uploads and handling
+#### Problem
+Currently, it takes too long to process PDF files, especially complex ones. There needs to be a way to reach constant conversion time for any given file.
 * Explore ways to make pdf conversion faster (ideally constant time)
     * Greedy vs Non-greedy algorithms (binary search?)
     * How to process files in batches
     * Asynchronous programming(?)
     * Streaming?
+    * Consider other libraries? (https://medium.com/analytics-vidhya/abffd75b1af7)
 * Explore ways to make audio conversion faster (ideally constant time)
 * ~~Set up an upload route to handle PDF uploads~~ (partial implementation)
 * ~~Set limits for PDF file size and validation~~
