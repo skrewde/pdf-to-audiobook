@@ -5,7 +5,7 @@ from pdfminer.pdfdocument import PDFDocument
 from pdfminer.pdfparser import PDFParser
 from pdfminer.pdftypes import resolve1
 
-with open('/upload/file.pdf', 'rb') as f:
+with open('/uploads/test.pdf', 'rb') as f:
     parser = PDFParser(f)
     doc = PDFDocument(parser)
 
