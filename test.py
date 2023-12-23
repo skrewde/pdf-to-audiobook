@@ -16,13 +16,18 @@ def convert_text_to_audio(text, audio_path):
 
 out = open("test.txt", "wb") # create a text output
 
+i = 0
+
 for page in doc: # iterate the document pages
+    print(f"working on page{i}...")
     text = page.get_text().encode("utf8") # get plain text (is in UTF-8)
     out.write(text) # write text of page
     out.write(bytes((12,))) # write page delimiter (form feed 0x0C)
-    convert_text_to_audio(text, "uploads/test.mp3")
+    i = i+1
+    # convert_text_to_audio(text, "uploads/test.mp3")
+out.close()
 
-# out.close()
+print(text)
 
 # from pdfminer.pdfdocument import PDFDocument
 # from pdfminer.pdfparser import PDFParser
