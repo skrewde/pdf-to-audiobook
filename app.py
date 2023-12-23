@@ -12,14 +12,14 @@ import pdfminer.high_level as pm
 app = Flask(__name__)
 
 pdfs = fu.UploadSet("pdfs", extensions="pdf") # uploadset config
+PASS_KEY  = str(secrets.SystemRandom().getrandbits(128)) # generate a random secret key
+fu.configure_uploads(app, pdfs) # store pdf uploadset config in app instance
+engine = pyttsx3.init() # instantiate pyttsx3 object
 
 app.config["UPLOADED_PDFS_DEST"] = "uploads/" # configure file path
 app.config["MAX_CONTENT_LENGTH"] = 3 * 1024 * 1024 # set max upload size to 3 megabytes
-app.config["SECRET_KEY"] = str(secrets.SystemRandom().getrandbits(128)) # generate a random secret key (not quite sure what this is useful for yet)
+app.config["SECRET_KEY"] = PASS_KEY
 
-fu.configure_uploads(app, pdfs) # store pdf uploadset config in app instance
-
-engine = pyttsx3.init() # instantiate pyttsx3 object
 
 # define file processing functions for readability
 def extract_text_from_pdf(pdf_path):
