@@ -14,18 +14,17 @@ def convert_text_to_audio(text, audio_path):
     engine.runAndWait()
 
 
-out = open("test.txt", "wb") # create a text output
+with open("uploads/test.txt", "wb") as out: # create a text output
+    i = 0
 
-i = 0
-
-for page in doc: # iterate the document pages
-    print(f"working on page{i}...")
-    text = page.get_text().encode("utf8") # get plain text (is in UTF-8)
-    out.write(text) # write text of page
-    out.write(bytes((12,))) # write page delimiter (form feed 0x0C)
-    i = i+1
-    # convert_text_to_audio(text, "uploads/test.mp3")
-out.close()
+    for page in doc: # iterate the document pages
+        print(f"working on page{i}...")
+        text = page.get_text().encode("utf8") # get plain text (is in UTF-8)
+        out.write(text) # write text of page
+        out.write(bytes((12,))) # write page delimiter (form feed 0x0C)
+        i = i+1
+        # convert_text_to_audio(text, "uploads/test.mp3")
+    out.close()
 
 print(text)
 
