@@ -3,39 +3,46 @@ module to test page count function?
 """
 import fitz
 import pyttsx3
+import pdfminer.high_level as pm
+import time
 
 engine = pyttsx3.init() # instantiate pyttsx3 object
 
 doc = fitz.open("uploads/test.pdf") # open a document
 
-def convert_text_to_audio(text, audio_path):
+all_text = ""
+
+def convert_text_to_audio(txt_path, audio_path):
     """ create "audiobook" using pyttsx3 """
-    engine.save_to_file(text, filename=audio_path)
+    engine.save_to_file(txt_path, filename=audio_path)
     engine.runAndWait()
 
-
-with open("uploads/test.txt", "wb") as out: # create a text output
+start = time.time()
+with open("uploads/test.txt", "w", encoding="utf-8") as out: # create a text output
     i = 0
 
     for page in doc: # iterate the document pages
         print(f"working on page{i}...")
-        text = page.get_text().encode("utf8") # get plain text (is in UTF-8)
+        text = page.get_text() # get plain text (is in UTF-8)
         out.write(text) # write text of page
-        out.write(bytes((12,))) # write page delimiter (form feed 0x0C)
+        out.write("\f") # write page delimiter (form feed 0x0C)
         i = i+1
+        all_text += text
         # convert_text_to_audio(text, "uploads/test.mp3")
     out.close()
+end = time.time()
 
-print(text)
+elapsed_time = end - start
 
-# from pdfminer.pdfdocument import PDFDocument
-# from pdfminer.pdfparser import PDFParser
-# from pdfminer.pdftypes import resolve1
+print(f"PyMuPDF's time for processing is {elapsed_time}")
 
-# with open('/uploads/test.pdf', 'rb') as f:
-#     parser = PDFParser(f)
-#     doc = PDFDocument(parser)
+doc.close() # close doc object
 
-#     parser.set_document(doc)
-#     pages = resolve1(doc.catalog['Pages'])
-#     pages_count = pages.get('Count', 0)
+start = time.time()
+with open("/uploads/test.pdf", "rb") as file:
+    pm.extract_text(file)
+end = time.time()
+
+elapsed_time = end - start
+
+print(f"PdfMiner.Six's time for processing is {elapsed_time}")
