@@ -1,10 +1,13 @@
 """
 module to test page count function?
 """
+import time
+
 import fitz
 import pyttsx3
 import pdfminer.high_level as pm
-import time
+
+start_time = time.time()
 
 engine = pyttsx3.init() # instantiate pyttsx3 object
 
@@ -17,6 +20,7 @@ def convert_text_to_audio(txt_path, audio_path):
     engine.save_to_file(txt_path, filename=audio_path)
     engine.runAndWait()
 
+# test for pymupdf
 start = time.time()
 with open("uploads/test.txt", "w", encoding="utf-8") as out: # create a text output
     i = 0
@@ -38,11 +42,19 @@ print(f"PyMuPDF's time for processing is {elapsed_time}")
 
 doc.close() # close doc object
 
+# test for pdfminer
 start = time.time()
-with open("/uploads/test.pdf", "rb") as file:
-    pm.extract_text(file)
+with open("uploads/test.pdf", "rb") as file:
+    text = pm.extract_text(file)
+
+    with open("uploads/test1.txt", "w", encoding="utf-8") as text_file:
+        text_file.write(text)
 end = time.time()
 
 elapsed_time = end - start
 
 print(f"PdfMiner.Six's time for processing is {elapsed_time}")
+
+end_time = time.time()
+
+print(f"the total running time is {end_time - start_time}")
