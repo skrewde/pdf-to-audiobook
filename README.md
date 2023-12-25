@@ -13,7 +13,7 @@ A list of this application's dependencies can be found in requirements.txt
 ```
 pip install -r requirements.txt
 ```
-5. Run the application using in the terminal window:
+5. Run the application  this command in the terminal window:
 ```
 flask run
 ```
