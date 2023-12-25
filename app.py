@@ -26,6 +26,24 @@ def extract_text_from_pdf(pdf_path):
     """ extract text using pdfminer.six """
     return pm.extract_text(pdf_path)
 
+def extract_text_from_pdf_pymupdf(pdf_path):
+    """ extract text using pymupdf """
+    all_text = ""
+    i = 0
+
+    doc = fitz.open(pdf_path) # open pdf
+
+    for page in doc: # iterate the document pages
+        print(f"working on page{i}...")
+        text = page.get_text() # get plain text (is in UTF-8)
+
+        i = i+1
+        all_text += text
+        # convert_text_to_audio(text, "uploads/test.mp3")
+
+    return all_text
+
+
 def save_string_to_text_file(text, text_path):
     """ write a string variable (text) to a text file (@ text_path) """
     with open(text_path, "w", encoding="utf-8") as text_file:
@@ -81,7 +99,7 @@ def convert():
             pdf_path = "uploads/" + pdf
 
             print("Extracting text...")
-            text = extract_text_from_pdf(pdf_path)
+            text = extract_text_from_pdf_pymupdf(pdf_path)
             print("Finished extracting text!")
 
             # text_path = "uploads/pdf.txt"
