@@ -8,7 +8,6 @@ import flask_uploads as fu
 
 import fitz
 import pyttsx3
-import pdfminer.high_level as pm
 
 app = Flask(__name__)
 
@@ -24,10 +23,6 @@ engine = pyttsx3.init() # instantiate pyttsx3 object
 
 # define file processing functions for readability
 def extract_text_from_pdf(pdf_path):
-    """ extract text using pdfminer.six """
-    return pm.extract_text(pdf_path)
-
-def extract_text_from_pdf_pymupdf(pdf_path):
     """ extract text using pymupdf """
     all_text = ""
     i = 0
@@ -100,7 +95,7 @@ def convert():
             pdf_path = "uploads/" + pdf
 
             print("Extracting text...")
-            text = extract_text_from_pdf_pymupdf(pdf_path)
+            text = extract_text_from_pdf(pdf_path)
             print("Finished extracting text!")
 
             # text_path = "uploads/pdf.txt"
