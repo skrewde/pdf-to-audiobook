@@ -18,7 +18,7 @@ Currently, it takes too long to process PDF files, especially complex ones. Ther
 * Test
 
 ### Text-To-Speech integration
-* ~~Look up Python packages/libraries for Natural-sounding TTS (OpenAI Whisper?)~~ (partial implementation)
+* Look up Python packages/libraries for Natural-sounding TTS (OpenAI Whisper?) (partial implementation)
 * ~~Set up a conversion route to handle PDF to MPEG conversion~~
 * Test
 
