@@ -1,6 +1,7 @@
 """logic and routes for pdf-to-audiobook"""
 import os
 import secrets
+import time
 
 from flask import Flask, redirect, request, render_template, url_for
 import flask_uploads as fu
@@ -108,7 +109,11 @@ def convert():
             audio_path = f"uploads/{filename}.mp3"
 
             print("Converting to audio...")
+            audio_start_time = time.time()
             convert_text_to_audio(text, audio_path)
+            audio_end_time = time.time()
+            audio_run_time = audio_end_time - audio_start_time
+            print(f"Audio took {audio_run_time} seconds to complete")
             print("Finished converting to audio!")
 
             return "Success! Check your uploads folder for the mp3 file"
