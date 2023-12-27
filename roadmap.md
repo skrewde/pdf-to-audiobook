@@ -1,4 +1,4 @@
-Did  a little housekeeping and seperating the README from my personal notes on the project's scope and future featurs, requirements, and overall implementation details.
+Did  a little housekeeping and seperated the README from my personal notes for better readability. This doc contains notes on the project's scope and future featurs, requirements, and overall implementation details.
 
 ## Features/Roadmap:
 
