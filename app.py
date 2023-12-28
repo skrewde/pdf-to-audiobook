@@ -20,7 +20,6 @@ fu.configure_uploads(app, pdfs) # store pdf uploadset config in app instance
 
 engine = pyttsx3.init() # instantiate pyttsx3 object
 
-
 # define file processing functions for readability
 def extract_text_from_pdf(pdf_path):
     """ extract text using pymupdf """
@@ -56,7 +55,7 @@ def text_file_checker(text, text_path):
         if text.strip() == file_content.strip():
             print(len(text.strip()))
             print(len(file_content.strip()))
-            print("Success! The string written to text file.")
+            print("Success! The string was written to text file.")
         else:
             print(len(text.strip()))
             print(len(file_content.strip()))
