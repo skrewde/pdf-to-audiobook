@@ -12,6 +12,8 @@ Currently, it takes too long to process PDF files, especially complex ones. Ther
     * Streaming?
     * ~~Consider other libraries? (https://medium.com/analytics-vidhya/abffd75b1af7)~~
 * Explore ways to make audio conversion faster (ideally constant time)
+    * Wrapper for espeak-ng? (Would need to test out the library first; Also, might be a hassle to manage a project for a project; Long-term might be worth it)
+    * Async, again (Lazy to implement but might be worth it)
 * ~~Set up an upload route to handle PDF uploads~~ (partial implementation)
 * ~~Set limits for PDF file size and validation~~
 * Save PDFs and metadata in SQLite db
